@@ -17,7 +17,7 @@ class server
         this.relogio = 12.0;
     }
 
-    private List<Socket> sockets = new ArrayList<Socket>();
+    private static ArrayList<Socket> sockets = new ArrayList<Socket>();
 
     public void changeTemperatua(Float temperatura){
         this.temperatura = temperatura;
@@ -39,7 +39,7 @@ class server
     }
 
     public static void addClient(Socket socket){
-        this.sockets.add(socket);
+        sockets.add(socket);
     }
 
     public static void main(String arg[])
