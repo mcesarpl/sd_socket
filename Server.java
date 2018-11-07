@@ -1,37 +1,34 @@
 import java.awt.List;
 import java.io.ObjectOutputStream;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.net.*;
 import java.util.ArrayList;
 
-class server
+class Server
 {
-    public float temperatura;
-    public boolean presenca;
-    public int umidade;
-    public double relogio;
-
-    public server(){
-        this.temperatura = 25;
-        this.presenca = false;
-        this.umidade = 20;
-        this.relogio = 12.0;
-    }
-
+    private static double temperatura;
+    private static boolean presenca;
+    private static int umidade;
+    private static double relogio;
     private static ArrayList<Socket> sockets = new ArrayList<Socket>();
 
-    public  void changeTemperatua(Float temperatura){
-        this.temperatura = temperatura;
+    public static void changeTemp(double temp){
+        temperatura = temp;
     }
 
-    public  void changePresenca(Boolean presenca){
-        this.presenca = presenca;
+    public static void changePresenca(boolean p){
+        presenca = p;
     }
 
     public static void sendTemperatura(String msg){
         for(Socket socket : sockets){
         	try{
-        		ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
-                output.writeUTF(msg);
+        		DataOutputStream outToClient = new DataOutputStream(
+                    socket.getOutputStream()
+                );
+                outToClient.writeBytes(msg+"\n");
         	} catch(Exception e){
         		System.out.println("Exception: " + e);
         	}
@@ -42,9 +39,10 @@ class server
         sockets.add(socket);
     }
     
+    
     public static void showClients(){
+    	System.out.println("List :");
     	for(Socket socket : sockets) {
-    		System.out.println("List :");
     		System.out.println(socket);
     	}
     }
@@ -54,10 +52,12 @@ class server
         try{
             ServerSocket server = new ServerSocket(3000);
             System.out.println("Server is Online on port : 3000 ");
+            
+            
             while(true){
-                Socket socket = server.accept();
-                addClient(socket);
-                showClients();
+                 Socket client = server.accept();
+                 addClient(client);
+                 (new MyClass(server, client)).start();
             }
         }catch(Exception e){}
     }
