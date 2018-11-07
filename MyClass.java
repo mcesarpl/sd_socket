@@ -33,7 +33,12 @@ public class MyClass extends Thread {
                 switch(value[0]){
                     case "TEMP": {
                         Server.changeTemp(new Double(value[1]));
-                        Server.sendTemperatura(value[1]);
+                        Server.sendValues(value[0] +"_"+ value[1]);
+                        break;
+                    }
+                    case "HUM": {
+                        Server.changeTemp(new Double(value[1]));
+                        Server.sendValues(value[0] +"_"+ value[1]);
                         break;
                     }
                 }

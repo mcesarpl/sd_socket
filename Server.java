@@ -22,7 +22,7 @@ class Server
         presenca = p;
     }
 
-    public static void sendTemperatura(String msg){
+    public static void sendValues(String msg){
         for(Socket socket : sockets){
         	try{
         		DataOutputStream outToClient = new DataOutputStream(
@@ -59,6 +59,8 @@ class Server
                  addClient(client);
                  (new MyClass(server, client)).start();
             }
-        }catch(Exception e){}
+        }catch(Exception e){
+            System.out.println(e);
+        }
     }
 }
