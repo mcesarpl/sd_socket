@@ -1,14 +1,16 @@
+import java.awt.List;
 import java.net.*;
+import java.util.ArrayList;
 
 class server
 {
-    public Float temperatura;
-    public Boolean presenca;
-    public Int umidade;
-    public Double relogio;
+    public float temperatura;
+    public boolean presenca;
+    public int umidade;
+    public double relogio;
 
     public server(){
-        this.temperatura = 25.0;
+        this.temperatura = 25;
         this.presenca = false;
         this.umidade = 20;
         this.relogio = 12.0;
@@ -35,7 +37,7 @@ class server
     	}
     }
 
-    public void addClient(Socket socket){
+    public static void addClient(Socket socket){
         this.sockets.add(socket);
     }
 
