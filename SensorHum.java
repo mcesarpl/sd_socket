@@ -10,6 +10,10 @@ class SensorHum
 {
     private static double humidade = 14.5;
     
+    public static void changeHumidade(double newHum){
+        humidade = newHum;
+    }
+
     public static void main(String arg[]){
         try{
             Socket socket = new Socket("127.0.0.1",3000);
@@ -26,7 +30,7 @@ class SensorHum
                 outToServer.writeBytes(String.format(Locale.US, "HUM_%.2f\n", humidade));
                 String value = inFromServer.readLine();
                 System.out.println(value);
-                Thread.sleep(700);
+                Thread.sleep(1200);
             }
 
         } catch(Exception e){

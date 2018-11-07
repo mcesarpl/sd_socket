@@ -26,10 +26,9 @@ public class MyClass extends Thread {
             );
         
             String[] value;
-            outToClient.writeBytes("Connected!");
+            outToClient.writeBytes("Connected!\n");
             while(true){
                 value = inFromClient.readLine().split("_");
-                outToClient.writeBytes("Mensagem recebida!"+"\n");
                 switch(value[0]){
                     case "TEMP": {
                         Server.changeTemp(new Double(value[1]));
@@ -37,7 +36,12 @@ public class MyClass extends Thread {
                         break;
                     }
                     case "HUM": {
-                        Server.changeTemp(new Double(value[1]));
+                        Server.changeHumidade(new Double(value[1]));
+                        Server.sendValues(value[0] +"_"+ value[1]);
+                        break;
+                    }
+                    case "PRES": {
+                        Server.changePresenca(Boolean.getBoolean(value[1]));
                         Server.sendValues(value[0] +"_"+ value[1]);
                         break;
                     }

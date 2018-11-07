@@ -10,7 +10,7 @@ class Server
 {
     private static double temperatura;
     private static boolean presenca;
-    private static int umidade;
+    private static double umidade;
     private static double relogio;
     private static ArrayList<Socket> sockets = new ArrayList<Socket>();
 
@@ -18,8 +18,12 @@ class Server
         temperatura = temp;
     }
 
-    public static void changePresenca(boolean p){
-        presenca = p;
+    public static void changePresenca(boolean pres){
+        presenca = pres;
+    }
+
+    public static void changeHumidade(double hum){
+        umidade = hum;
     }
 
     public static void sendValues(String msg){
@@ -57,6 +61,7 @@ class Server
             while(true){
                  Socket client = server.accept();
                  addClient(client);
+                 System.out.println("New Clien : " + client);
                  (new MyClass(server, client)).start();
             }
         }catch(Exception e){

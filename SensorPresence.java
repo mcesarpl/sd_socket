@@ -8,30 +8,27 @@ import java.util.Locale;
 
 class SensorPresence
 {
-    private static double temp = 35.9;
+    private static boolean presence = false;
     
-    public static void changeTemp(double newTemp){
-        temp = newTemp;
+    public static void changePresence(boolean newBool){
+        presence = newBool;
     }
-    
-    
     public static void main(String arg[]){
         try{
             Socket socket = new Socket("127.0.0.1",3000);
-            //System.out.println("Connected!");
-            //ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-            //ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
-             BufferedReader inFromServer = new BufferedReader(
+            BufferedReader inFromServer = new BufferedReader(
                 new InputStreamReader(socket.getInputStream())
             );
             DataOutputStream outToServer = new DataOutputStream(
                 socket.getOutputStream()
             );
+
+            String value = "";
             while(true){
-                outToServer.writeBytes(String.format(Locale.US, "TEMP_%.2f\n", temp));
-                String value = inFromServer.readLine();
+                outToServer.writeBytes("PRES_" + String.valueOf(presence) + "\n");
+                value = inFromServer.readLine();
                 System.out.println(value);
-                Thread.sleep(700);
+                Thread.sleep(1500);
             }
 
         } catch(Exception e){

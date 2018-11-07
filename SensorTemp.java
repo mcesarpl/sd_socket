@@ -31,7 +31,7 @@ class SensorTemp
                 outToServer.writeBytes(String.format(Locale.US, "TEMP_%.2f\n", temp));
                 String value = inFromServer.readLine();
                 System.out.println(value);
-                Thread.sleep(700);
+                Thread.sleep(1000);
             }
 
         } catch(Exception e){
