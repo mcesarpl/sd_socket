@@ -19,15 +19,15 @@ class server
 
     private static ArrayList<Socket> sockets = new ArrayList<Socket>();
 
-    public void changeTemperatua(Float temperatura){
+    public  void changeTemperatua(Float temperatura){
         this.temperatura = temperatura;
     }
 
-    public void changePresenca(Boolean presenca){
+    public  void changePresenca(Boolean presenca){
         this.presenca = presenca;
     }
 
-    public void sendTemperatura(String msg){
+    public static void sendTemperatura(String msg){
         for(Socket socket : sockets){
         	try{
         		ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
@@ -41,6 +41,13 @@ class server
     public static void addClient(Socket socket){
         sockets.add(socket);
     }
+    
+    public static void showClients(){
+    	for(Socket socket : sockets) {
+    		System.out.println("List :");
+    		System.out.println(socket);
+    	}
+    }
 
     public static void main(String arg[])
     {
@@ -50,7 +57,7 @@ class server
             while(true){
                 Socket socket = server.accept();
                 addClient(socket);
-                System.out.println("Connected : "+ socket);
+                showClients();
             }
         }catch(Exception e){}
     }
