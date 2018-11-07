@@ -45,6 +45,8 @@ public class MyClass extends Thread {
                         Server.sendValues(value[0] +"_"+ value[1]);
                         break;
                     }
+                    default:
+                        Server.sendValues("Invalid Request!");
                 }
             }
         }catch(Exception e){

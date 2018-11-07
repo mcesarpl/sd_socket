@@ -17,19 +17,26 @@ class SensorHum
     public static void main(String arg[]){
         try{
             Socket socket = new Socket("127.0.0.1",3000);
-            //System.out.println("Connected!");
-            //ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-            //ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
+
              BufferedReader inFromServer = new BufferedReader(
                 new InputStreamReader(socket.getInputStream())
             );
             DataOutputStream outToServer = new DataOutputStream(
                 socket.getOutputStream()
             );
+            String[] value;
             while(true){
                 outToServer.writeBytes(String.format(Locale.US, "HUM_%.2f\n", humidade));
-                String value = inFromServer.readLine();
-                System.out.println(value);
+                value = inFromServer.readLine().split("_");
+                switch(value[0]){
+                    case "HUM": {
+                        changeHumidade(new Double(value[1]));
+                        System.out.println("Changed to : " + value[1]);
+                        break;
+                    }
+                    default:
+                        System.out.println("No change value.");
+                }
                 Thread.sleep(1200);
             }
 

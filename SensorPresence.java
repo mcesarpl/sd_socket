@@ -23,11 +23,19 @@ class SensorPresence
                 socket.getOutputStream()
             );
 
-            String value = "";
+            String[] value;
             while(true){
                 outToServer.writeBytes("PRES_" + String.valueOf(presence) + "\n");
-                value = inFromServer.readLine();
-                System.out.println(value);
+                value = inFromServer.readLine().split("_");
+                switch(value[0]){
+                    case "PRES": {
+                        changePresence(Boolean.getBoolean(value[1]));
+                        System.out.println("Changed to : " + value[1]);
+                        break;
+                    }
+                    default:
+                        System.out.println("No change value.");
+                }
                 Thread.sleep(1500);
             }
 
