@@ -6,14 +6,14 @@ import java.io.ObjectOutputStream;
 import java.net.*;
 import java.util.Locale;
 
-class SensorPresence
+public class SensorPresence
 {
     private static boolean presence = false;
     
     public static void changePresence(boolean newBool){
         presence = newBool;
     }
-    
+
     public static void main(String arg[]){
         try{
             Socket socket = new Socket("127.0.0.1",3000);
@@ -29,13 +29,13 @@ class SensorPresence
                 outToServer.writeBytes("PRES_" + String.valueOf(presence) + "\n");
                 value = inFromServer.readLine().split("_");
                 switch(value[0]){
-                    case "PRES": {
-                        changePresence(Boolean.getBoolean(value[1]));
+                    case "CPRES": {
+                        changePresence(Boolean.parseBoolean(value[1]));
                         System.out.println("Changed to : " + value[1]);
                         break;
                     }
                     default:
-                        System.out.println("No change value.");
+                        System.out.println("Presence : " + presence);
                 }
                 Thread.sleep(1500);
             }

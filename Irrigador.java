@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.*;
 import java.util.Locale;
 
-class Irrigador
+public class Irrigador
 {
     private static boolean status = false;
     private static double umidade = 30;

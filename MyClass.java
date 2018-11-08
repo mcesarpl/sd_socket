@@ -8,7 +8,6 @@ public class MyClass extends Thread {
 
     private ServerSocket server;
     private Socket socket;
-    //private static ArrayList<Socket> sockets = new ArrayList<Socket>();
     
     public MyClass(ServerSocket server, Socket socket){
         this.server = server;
@@ -31,23 +30,32 @@ public class MyClass extends Thread {
                 value = inFromClient.readLine().split("_");
                 switch(value[0]){
                     case "TEMP": {
-                        Server.changeTemp(new Double(value[1]));
                         Server.sendValues(value[0] +"_"+ value[1]);
                         break;
                     }
                     case "HUM": {
-                        Server.changeHumidade(new Double(value[1]));
                         Server.sendValues(value[0] +"_"+ value[1]);
                         break;
                     }
                     case "PRES": {
-                        Server.changePresenca(Boolean.getBoolean(value[1]));
                         Server.sendValues(value[0] +"_"+ value[1]);
                         break;
                     }
                     default:
                         Server.sendValues("Invalid Request!");
                 }
+                Thread.sleep(500);
+                Server.changePresenca(true);
+                Thread.sleep(500);
+                Server.changeTemp(35f);
+                Thread.sleep(500);
+                Server.changeHumidade(40);
+                Thread.sleep(500);
+                Server.changePresenca(false);
+                Thread.sleep(500);
+                Server.changeTemp(15f);
+                Thread.sleep(500);
+                Server.changeHumidade(16);
             }
         }catch(Exception e){
             System.out.println(e);

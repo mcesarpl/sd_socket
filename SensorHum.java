@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.*;
 import java.util.Locale;
 
-class SensorHum
+public class SensorHum
 {
     private static double humidade = 14.5;
     
@@ -29,13 +29,13 @@ class SensorHum
                 outToServer.writeBytes(String.format(Locale.US, "HUM_%.2f\n", humidade));
                 value = inFromServer.readLine().split("_");
                 switch(value[0]){
-                    case "HUM": {
+                    case "CHUM": {
                         changeHumidade(new Double(value[1]));
                         System.out.println("Changed to : " + value[1]);
                         break;
                     }
                     default:
-                        System.out.println("No change value.");
+                        System.out.println("Hum : " + humidade);
                 }
                 Thread.sleep(1200);
             }

@@ -40,7 +40,7 @@ class Luz
                 value = inFromServer.readLine().split("_");
                 switch(value[0]){
                     case "PRES": {
-                        changePresenca(Boolean.getBoolean(value[1]));
+                        changePresenca(Boolean.parseBoolean(value[1]));
                         System.out.println("Changed to : " + value[1]);
                         if(horario>18 && presenca){
                             changeStatus(true);
@@ -64,7 +64,7 @@ class Luz
                         break;
                     }
                     default:
-                        System.out.println("No change value.");
+                        System.out.println("Light is : " + status);
                 }
             }
 

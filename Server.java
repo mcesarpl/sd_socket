@@ -7,32 +7,24 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.Locale;
 
-class Server
+public class Server
 {
-    private static double temperatura;
-    private static boolean presenca;
-    private static double umidade;
-    private static double relogio;
     private static ArrayList<Socket> sockets = new ArrayList<Socket>();
 
     public static void changeTemp(double newTemperatura){
-        temperatura = newTemperatura;
-        sendValues(String.format(Locale.US, "TEMP_%.2f\n", temperatura));
+        sendValues(String.format(Locale.US, "CTEMP_%.2f\n", newTemperatura));
     }
 
     public static void changePresenca(boolean pres){
-        presenca = pres;
-        sendValues("PRES_" + String.valueOf(presenca));
+        sendValues("CPRES_" + String.valueOf(pres));
     }
 
     public static void changeHumidade(double hum){
-        umidade = hum;
-        sendValues(String.format(Locale.US, "HUM_%.2f\n", umidade));
+        sendValues(String.format(Locale.US, "CHUM_%.2f\n", hum));
     }
 
     public static void changeTime(double newTime){
-        relogio = newTime;
-        sendValues(String.format(Locale.US, "TIM_%.2f\n", relogio));
+        sendValues(String.format(Locale.US, "CTIM_%.2f\n", newTime));
     }
 
 

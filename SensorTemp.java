@@ -30,13 +30,13 @@ class SensorTemp
                 outToServer.writeBytes(String.format(Locale.US, "TEMP_%.2f\n", temp));
                 value = inFromServer.readLine().split("_");
                 switch(value[0]){
-                    case "TEMP": {
+                    case "CTEMP": {
                         changeTemp(new Double(value[1]));
                         System.out.println("Changed to : " + value[1]);
                         break;
                     }
                     default:
-                        System.out.println("No change value.");
+                        System.out.println("Temp : " + temp);
                 }
                 Thread.sleep(1000);
             }

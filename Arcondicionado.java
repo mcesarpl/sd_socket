@@ -6,11 +6,11 @@ import java.io.ObjectOutputStream;
 import java.net.*;
 import java.util.Locale;
 
-class Arcondicionado
+public class Arcondicionado
 {
     private static boolean status = false;
     private static double temperatura;
-    private static boolean presenca;
+    private static boolean presenca = true;
     
     public static void changeStatus(boolean newStatus){
         status = newStatus;
@@ -40,7 +40,7 @@ class Arcondicionado
                 value = inFromServer.readLine().split("_");
                 switch(value[0]){
                     case "PRES": {
-                        changePresenca(Boolean.getBoolean(value[1]));
+                        changePresenca(Boolean.parseBoolean(value[1]));
                         System.out.println("Changed to : " + value[1]);
                         if(presenca && temperatura>25f){
                             changeStatus(true);
@@ -64,7 +64,7 @@ class Arcondicionado
                         break;
                     }
                     default:
-                        System.out.println("No change value.");
+                        System.out.println("Arcond is : " + status);
                 }
             }
 
