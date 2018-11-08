@@ -6,17 +6,23 @@ import java.io.ObjectOutputStream;
 import java.net.*;
 import java.util.Locale;
 
-class SensorPresence
+class Porta
 {
-    private static boolean presence = false;
+    private static boolean status = false;
+    private static double horario = 12;
     
-    public static void changePresence(boolean newBool){
-        presence = newBool;
+    public static void changeStatus(boolean newStatus){
+        status = newStatus;
     }
-    
+
+    public static void changeHorario(double newTime){
+        horario = newTime;
+    }
+
     public static void main(String arg[]){
         try{
             Socket socket = new Socket("127.0.0.1",3000);
+
             BufferedReader inFromServer = new BufferedReader(
                 new InputStreamReader(socket.getInputStream())
             );
@@ -26,18 +32,23 @@ class SensorPresence
 
             String[] value;
             while(true){
-                outToServer.writeBytes("PRES_" + String.valueOf(presence) + "\n");
                 value = inFromServer.readLine().split("_");
                 switch(value[0]){
-                    case "PRES": {
-                        changePresence(Boolean.getBoolean(value[1]));
+                    case "TIM": {
+                        changeHorario((new Double(value[1])));
                         System.out.println("Changed to : " + value[1]);
+                        if(horario>24 || horario<5){
+                            changeStatus(true);
+                            System.out.println("Door Locked!");
+                        }else{
+                            changeStatus(false);
+                            System.out.println("Door Opened!");
+                        }
                         break;
                     }
                     default:
                         System.out.println("No change value.");
                 }
-                Thread.sleep(1500);
             }
 
         } catch(Exception e){

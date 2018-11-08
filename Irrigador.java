@@ -6,17 +6,23 @@ import java.io.ObjectOutputStream;
 import java.net.*;
 import java.util.Locale;
 
-class SensorPresence
+class Irrigador
 {
-    private static boolean presence = false;
+    private static boolean status = false;
+    private static double umidade = 30;
     
-    public static void changePresence(boolean newBool){
-        presence = newBool;
+    public static void changeStatus(boolean newStatus){
+        status = newStatus;
     }
-    
+
+    public static void changeHumidade(double hum){
+        umidade = hum;
+    }
+
     public static void main(String arg[]){
         try{
             Socket socket = new Socket("127.0.0.1",3000);
+
             BufferedReader inFromServer = new BufferedReader(
                 new InputStreamReader(socket.getInputStream())
             );
@@ -26,18 +32,23 @@ class SensorPresence
 
             String[] value;
             while(true){
-                outToServer.writeBytes("PRES_" + String.valueOf(presence) + "\n");
                 value = inFromServer.readLine().split("_");
                 switch(value[0]){
-                    case "PRES": {
-                        changePresence(Boolean.getBoolean(value[1]));
+                    case "HUM": {
+                        changeHumidade(new Double(value[1]));
                         System.out.println("Changed to : " + value[1]);
+                        if(umidade<30){
+                            changeStatus(true);
+                            System.out.println("irrigator is ON!");
+                        }else{
+                            changeStatus(false);
+                            System.out.println("irrigator is OFF!");
+                        }
                         break;
                     }
                     default:
                         System.out.println("No change value.");
                 }
-                Thread.sleep(1500);
             }
 
         } catch(Exception e){

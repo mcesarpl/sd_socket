@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Locale;
 
 class Server
 {
@@ -14,17 +15,27 @@ class Server
     private static double relogio;
     private static ArrayList<Socket> sockets = new ArrayList<Socket>();
 
-    public static void changeTemp(double temp){
-        temperatura = temp;
+    public static void changeTemp(double newTemperatura){
+        temperatura = newTemperatura;
+        sendValues(String.format(Locale.US, "TEMP_%.2f\n", temperatura));
     }
 
     public static void changePresenca(boolean pres){
         presenca = pres;
+        sendValues("PRES_" + String.valueOf(presenca));
     }
 
     public static void changeHumidade(double hum){
         umidade = hum;
+        sendValues(String.format(Locale.US, "HUM_%.2f\n", umidade));
     }
+
+    public static void changeTime(double newTime){
+        relogio = newTime;
+        sendValues(String.format(Locale.US, "TIM_%.2f\n", relogio));
+    }
+
+
 
     public static void sendValues(String msg){
         for(Socket socket : sockets){

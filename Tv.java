@@ -6,17 +6,23 @@ import java.io.ObjectOutputStream;
 import java.net.*;
 import java.util.Locale;
 
-class SensorPresence
+class Tv
 {
-    private static boolean presence = false;
+    private static boolean status = false;
+    private static boolean presenca = false;
     
-    public static void changePresence(boolean newBool){
-        presence = newBool;
+    public static void changeStatus(boolean newStatus){
+        status = newStatus;
     }
-    
+
+    public static void changePresenca(boolean pres){
+        presenca = pres;
+    }
+
     public static void main(String arg[]){
         try{
             Socket socket = new Socket("127.0.0.1",3000);
+
             BufferedReader inFromServer = new BufferedReader(
                 new InputStreamReader(socket.getInputStream())
             );
@@ -26,18 +32,23 @@ class SensorPresence
 
             String[] value;
             while(true){
-                outToServer.writeBytes("PRES_" + String.valueOf(presence) + "\n");
                 value = inFromServer.readLine().split("_");
                 switch(value[0]){
                     case "PRES": {
-                        changePresence(Boolean.getBoolean(value[1]));
+                        changePresenca(Boolean.getBoolean(value[1]));
                         System.out.println("Changed to : " + value[1]);
+                        if(presenca){
+                            changeStatus(true);
+                            System.out.println("Tv is on!");
+                        }else{
+                            changeStatus(false);
+                            System.out.println("Tv is off!");
+                        }
                         break;
                     }
                     default:
                         System.out.println("No change value.");
                 }
-                Thread.sleep(1500);
             }
 
         } catch(Exception e){
