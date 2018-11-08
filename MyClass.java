@@ -44,18 +44,6 @@ public class MyClass extends Thread {
                     default:
                         Server.sendValues("Invalid Request!");
                 }
-                Thread.sleep(500);
-                Server.changePresenca(true);
-                Thread.sleep(500);
-                Server.changeTemp(35f);
-                Thread.sleep(500);
-                Server.changeHumidade(40);
-                Thread.sleep(500);
-                Server.changePresenca(false);
-                Thread.sleep(500);
-                Server.changeTemp(15f);
-                Thread.sleep(500);
-                Server.changeHumidade(16);
             }
         }catch(Exception e){
             System.out.println(e);

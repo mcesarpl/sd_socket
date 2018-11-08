@@ -39,15 +39,21 @@ public class Irrigador
                         System.out.println("Changed to : " + value[1]);
                         if(umidade<30){
                             changeStatus(true);
-                            System.out.println("irrigator is ON!");
+                            System.out.println("Irrigator is ON!");
                         }else{
                             changeStatus(false);
-                            System.out.println("irrigator is OFF!");
+                            System.out.println("Irrigator is OFF!");
                         }
                         break;
                     }
                     default:
-                        System.out.println("No change value.");
+                    {
+                        if(status){
+                            System.out.println("Irrigator is ON!");
+                        }else{
+                            System.out.println("Irrigator is OFF!");
+                        }
+                    }
                 }
             }
 

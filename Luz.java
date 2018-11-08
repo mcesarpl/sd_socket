@@ -41,7 +41,7 @@ class Luz
                 switch(value[0]){
                     case "PRES": {
                         changePresenca(Boolean.parseBoolean(value[1]));
-                        System.out.println("Changed to : " + value[1]);
+                        System.out.println("Presence Changed to : " + presenca);
                         if(horario>18 && presenca){
                             changeStatus(true);
                             System.out.println("Light is ON!");
@@ -53,7 +53,7 @@ class Luz
                     }
                     case "TIM": {
                         changeHorario((new Double(value[1])));
-                        System.out.println("Changed to : " + value[1]);
+                        System.out.println("Time Changed to : " + horario);
                         if(horario>18 && presenca){
                             changeStatus(true);
                             System.out.println("Light is ON!");
@@ -64,7 +64,13 @@ class Luz
                         break;
                     }
                     default:
-                        System.out.println("Light is : " + status);
+                    {
+                        if(status){
+                            System.out.println("Light is ON!");
+                        }else{
+                            System.out.println("Light is OFF!");
+                        }
+                    }
                 }
             }
 

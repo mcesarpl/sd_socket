@@ -35,7 +35,7 @@ class Tv
                 value = inFromServer.readLine().split("_");
                 switch(value[0]){
                     case "PRES": {
-                        changePresenca(Boolean.getBoolean(value[1]));
+                        changePresenca(Boolean.parseBoolean(value[1]));
                         System.out.println("Changed to : " + value[1]);
                         if(presenca){
                             changeStatus(true);
@@ -47,7 +47,13 @@ class Tv
                         break;
                     }
                     default:
-                        System.out.println("No change value.");
+                    {
+                        if(status){
+                            System.out.println("Tv is on!");
+                        }else{
+                            System.out.println("Tv is off!");
+                        }
+                    }
                 }
             }
 

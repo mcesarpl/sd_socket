@@ -24,7 +24,7 @@ public class Server
     }
 
     public static void changeTime(double newTime){
-        sendValues(String.format(Locale.US, "CTIM_%.2f\n", newTime));
+        sendValues(String.format(Locale.US, "TIM_%.2f\n", newTime));
     }
 
 

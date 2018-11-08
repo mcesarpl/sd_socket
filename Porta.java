@@ -46,8 +46,14 @@ class Porta
                         }
                         break;
                     }
-                    default:
-                        System.out.println("No change value.");
+                    default:{
+                        if(status){
+                            System.out.println("Door is LOCKED!");
+                        }else{
+                            System.out.println("Door is OPENED!");
+                        }
+                    }
+                        
                 }
             }
 
